@@ -14,7 +14,9 @@ class Cards extends Component {
               <CardComponent key={card.id} card={card} reveal={reveal} />
             ))}
           </Row>
-          <Button className="w-25 m-3 p-2 btn">Summon Again</Button>
+          <Button disabled className="w-25 mt-5 p-2 btn">
+            Summon Again
+          </Button>
         </Container>
       </div>
     );

@@ -32,21 +32,19 @@ class App extends Component {
 
   render() {
     return (
-      <>
-        <Router>
-          <div className="container">
-            <Header coins={this.state.coins} />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Cards cards={this.state.cards} reveal={this.handleClick} />
-                }
-              />
-            </Routes>
-          </div>
-        </Router>
-      </>
+      <Router>
+        <div className="container">
+          <Header coins={this.state.coins} />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Cards cards={this.state.cards} reveal={this.handleClick} />
+              }
+            />
+          </Routes>
+        </div>
+      </Router>
     );
   }
 }
