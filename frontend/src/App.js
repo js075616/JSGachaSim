@@ -18,6 +18,7 @@ class App extends Component {
       { id: "card8", type: "SR", cardNumber: 1, revealed: false },
       { id: "card9", type: "Featured SSR", cardNumber: 1, revealed: false },
     ],
+    coins: 1000,
   };
 
   handleClick = (card) => {
@@ -34,7 +35,7 @@ class App extends Component {
       <>
         <Router>
           <div className="container">
-            <Header />
+            <Header coins={this.state.coins} />
             <Routes>
               <Route
                 path="/"

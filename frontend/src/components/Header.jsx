@@ -1,19 +1,15 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-function Header() {
+function Header({ coins }) {
   return (
     <header className="header">
       <div className="logo">
-        <Link to="/">Reset Summon Simulator</Link>
+        <h3 to="/">Summon Simulator</h3>
       </div>
-      <ul>
-        <>
-          <li>
-            <p>Stones: 1000</p>
-          </li>
-        </>
-      </ul>
+      <div className="logo">
+        <h4>Coins: {coins}</h4>
+      </div>
     </header>
   );
 }
