@@ -12,10 +12,10 @@ import { useDispatch, useSelector } from "react-redux";
 function App() {
   const [tempState, setTempState] = useState({
     cards: [
-      { id: "card0", type: "SSR", cardNumber: 1, revealed: false },
-      { id: "card1", type: "SR", cardNumber: 1, revealed: false },
-      { id: "card2", type: "R", cardNumber: 1, revealed: false },
-      { id: "card3", type: "Featured SSR", cardNumber: 1, revealed: false },
+      { id: "card0", type: "Featured SSR", cardNumber: 1, revealed: false },
+      { id: "card1", type: "SSR", cardNumber: 1, revealed: false },
+      { id: "card2", type: "SR", cardNumber: 1, revealed: false },
+      { id: "card3", type: "R", cardNumber: 1, revealed: false },
       { id: "card4", type: "R", cardNumber: 1, revealed: false },
       { id: "card5", type: "R", cardNumber: 1, revealed: false },
       { id: "card6", type: "SR", cardNumber: 1, revealed: false },
@@ -28,20 +28,6 @@ function App() {
 
   const dispatch = useDispatch();
   const { cardsFromAPI, isLoading } = useSelector((state) => state.summon);
-  // dispatch(getNewSummon());
-
-  // useEffect(() => {
-  //   if (isError) {
-  //     toast.error(message);
-  //   }
-
-  //   if (isSuccess) {
-  //     // navigate("/");
-  //     toast.success("Summoned!");
-  //   }
-
-  //   // dispatch(reset());
-  // }, [isError, isSuccess, message, dispatch]);
 
   const handleClick = (card) => {
     const cards = [...tempState.cards];
