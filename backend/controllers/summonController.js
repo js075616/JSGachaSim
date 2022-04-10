@@ -1,16 +1,16 @@
 function performSummon(featuredArray, summonWeight, SSR, SR, R) {
   var jsonData = {
     cards: [
-      { id: "card0", type: "", cardNumber: 0 },
-      { id: "card1", type: "", cardNumber: 0 },
-      { id: "card2", type: "", cardNumber: 1 },
-      { id: "card3", type: "", cardNumber: 1 },
-      { id: "card4", type: "", cardNumber: 1 },
-      { id: "card5", type: "", cardNumber: 1 },
-      { id: "card6", type: "", cardNumber: 1 },
-      { id: "card7", type: "", cardNumber: 1 },
-      { id: "card8", type: "", cardNumber: 1 },
-      { id: "card9", type: "", cardNumber: 1 },
+      { id: "card0", type: "", cardNumber: 0, revealed: false },
+      { id: "card1", type: "", cardNumber: 0, revealed: false },
+      { id: "card2", type: "", cardNumber: 1, revealed: false },
+      { id: "card3", type: "", cardNumber: 1, revealed: false },
+      { id: "card4", type: "", cardNumber: 1, revealed: false },
+      { id: "card5", type: "", cardNumber: 1, revealed: false },
+      { id: "card6", type: "", cardNumber: 1, revealed: false },
+      { id: "card7", type: "", cardNumber: 1, revealed: false },
+      { id: "card8", type: "", cardNumber: 1, revealed: false },
+      { id: "card9", type: "", cardNumber: 1, revealed: false },
     ],
   };
   var summonTotal = 0;
@@ -22,11 +22,12 @@ function performSummon(featuredArray, summonWeight, SSR, SR, R) {
     summonWeight.forEach((element) => {
       if (randomCard <= element) {
         if (randomCard <= summonWeight[2]) {
+          let randomFeatured = getRandomInt(featuredArray.length);
           jsonData.cards[i].type = "Featured SSR";
           jsonData.cards[i].cardNumber = getRandomInt(featuredArray.length);
-        } /*else if (randomCard <= summonWeight[2]) {
-           jsonData.cards[i].type = "SSR";
-          jsonData.cards[i].cardNumber = getRandomInt(SSR);
+        } /*else if (randomCard <= 100) {
+            let randomUnfeatured = getRandomInt(SSR);
+             jsonData[`card${i}`] = `SSR`;
           }*/ else if (randomCard <= summonWeight[1]) {
           jsonData.cards[i].type = "SR";
           jsonData.cards[i].cardNumber = getRandomInt(SR);

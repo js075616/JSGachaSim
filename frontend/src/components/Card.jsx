@@ -17,9 +17,9 @@ class CardComponent extends Component {
         style={{ width: "19%" }}
         className="m-1"
       >
-        <Card.Header>{cardTitle(card)}</Card.Header>
+        <Card.Header>{cardHeader(card)}</Card.Header>
         <Card.Body className="mt-5 mb-5">
-          <Card.Title></Card.Title>
+          <Card.Title>{cardTitle(card)}</Card.Title>
           <Card.Text className="mt-5 mb-5">
             {!card.revealed ? (
               <Button
@@ -68,8 +68,13 @@ function revealButtonBG(card) {
   }
 }
 
-function cardTitle(card) {
+function cardHeader(card) {
   if (card.revealed === true) return card.type;
+  else return "\n";
+}
+
+function cardTitle(card) {
+  if (card.revealed === true) return card.cardNumber;
   else return "\n";
 }
 
