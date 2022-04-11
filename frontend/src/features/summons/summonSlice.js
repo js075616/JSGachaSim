@@ -37,7 +37,6 @@ export const summonSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.cardsFromAPI = action.payload;
-        // console.log(state.cards);
       })
       .addCase(getNewSummon.rejected, (state, action) => {
         state.isLoading = false;

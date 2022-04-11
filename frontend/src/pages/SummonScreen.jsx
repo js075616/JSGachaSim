@@ -1,6 +1,6 @@
 import Cards from "../components/Cards";
 
-function Dashboard({ cards, reveal, summonBtnClick, flipAll }) {
+function SummonScreen({ cards, reveal, summonBtnClick, flipAll }) {
   return (
     <div>
       <Cards
@@ -13,4 +13,4 @@ function Dashboard({ cards, reveal, summonBtnClick, flipAll }) {
   );
 }
 
-export default Dashboard;
+export default SummonScreen;
