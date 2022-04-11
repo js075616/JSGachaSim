@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Cards from "./components/Cards";
+import Dashboard from "./pages/SummonScreen";
 import Header from "./components/Header";
 import { ToastContainer } from "react-toastify";
 import { toast } from "react-toastify";
@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Spinner from "../src/components/Spinner";
 import { getNewSummon } from "./features/summons/summonSlice";
 import { useDispatch, useSelector } from "react-redux";
+import BannerSelection from "./pages/BannerSelection";
 
 function App() {
   const [tempState, setTempState] = useState({
@@ -33,14 +34,23 @@ function App() {
     const cards = [...tempState.cards];
     const coins = tempState.coins;
     const index = cards.indexOf(card);
-    // console.log(cards[index]);
     cards[index] = { ...card };
     cards[index].revealed = true;
     setTempState({ cards, coins });
-    // console.log("Flipped");
   };
 
-  const handleBtnClick = () => {
+  const handleFlipAll = () => {
+    var cards = [...tempState.cards];
+    const coins = tempState.coins;
+    tempState.cards.forEach((card) => {
+      const index = cards.indexOf(card);
+      cards[index] = { ...card };
+      cards[index].revealed = true;
+    });
+    setTempState({ cards, coins });
+  };
+
+  const handleSummonBtnClick = () => {
     dispatch(getNewSummon());
     console.log(cardsFromAPI);
     if (!isLoading && cardsFromAPI.length !== 0 && tempState.coins > 0) {
@@ -64,15 +74,17 @@ function App() {
           <Header coins={tempState.coins} />
           <Routes>
             <Route
-              path="/"
+              path="/firstbanner"
               element={
-                <Cards
+                <Dashboard
                   cards={tempState.cards}
                   reveal={handleClick}
-                  buttonClick={handleBtnClick}
+                  summonBtnClick={handleSummonBtnClick}
+                  flipAll={handleFlipAll}
                 />
               }
             />
+            <Route path="/" element={<BannerSelection />} />
           </Routes>
         </div>
       </Router>

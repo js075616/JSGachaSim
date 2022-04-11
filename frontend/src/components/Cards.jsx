@@ -3,7 +3,7 @@ import { Container, Row, Button } from "react-bootstrap";
 import CardComponent from "./Card";
 
 // TODO: Add a flip all button
-function Cards({ cards, reveal, buttonClick }) {
+function Cards({ cards, reveal, summonBtnClick, flipAll }) {
   return (
     <div className="Cards">
       <h4>
@@ -17,10 +17,10 @@ function Cards({ cards, reveal, buttonClick }) {
           ))}
         </Row>
       </Container>
-      <Button disabled className="w-25 mt-5 p-2 btn-info">
+      <Button onClick={() => flipAll()} className="w-25 mt-5 p-2 btn-info">
         Flip All
       </Button>
-      <Button onClick={() => buttonClick()} className="w-25 mt-5 p-2 btn">
+      <Button onClick={() => summonBtnClick()} className="w-25 mt-5 p-2 btn">
         Summon Again
       </Button>
     </div>
