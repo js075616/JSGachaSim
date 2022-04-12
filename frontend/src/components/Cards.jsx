@@ -8,8 +8,8 @@ function Cards({ cards, reveal, summonBtnClick, flipAll }) {
       <div>
         <h3>First Banner</h3>
         <h4>
-          This banner contains 7 Featured SSR at 5%, 10 SSR at 5%, 10 SR at 30%,
-          and 15 R at 60%. The final slot is a GSSR.
+          This banner contains 7 Featured SSR at 5%, 10 SSR at 5%, 10 SR at 60%,
+          and 15 R at 30%. The final slot is a GSSR.
         </h4>
         <Container className="align-items-center justify-content-center">
           <Row>
