@@ -3,9 +3,7 @@ const summon = require("../controllers/summonController");
 const router = express.Router();
 
 router.get("/firstbanner", (req, res) => {
-  res
-    .status(200)
-    .json(summon.performSummon([1, 2, 3], [700, 250, 50], 0, 5, 10));
+  res.status(200).json(summon.performSummon([30, 60, 5, 5], 15, 10, 10, 7));
 });
 
 module.exports = router;

@@ -1,52 +1,96 @@
-import React, { Component } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Cards from "../src/components/Cards";
-// import Card from "../src/components/Card";
+import SummonScreen from "./pages/SummonScreen";
 import Header from "./components/Header";
+import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Spinner from "../src/components/Spinner";
+import { getNewSummon } from "./features/summons/summonSlice";
+import { useDispatch, useSelector } from "react-redux";
+import BannerSelection from "./pages/BannerSelection";
+import FirstPull from "./components/FirstPull";
 
-class App extends Component {
-  state = {
-    cards: [
-      { id: "card0", type: "SSR", cardNumber: 1, revealed: false },
-      { id: "card1", type: "SR", cardNumber: 1, revealed: false },
-      { id: "card2", type: "R", cardNumber: 1, revealed: false },
-      { id: "card3", type: "Featured SSR", cardNumber: 1, revealed: false },
-      { id: "card4", type: "R", cardNumber: 1, revealed: false },
-      { id: "card5", type: "R", cardNumber: 1, revealed: false },
-      { id: "card6", type: "SR", cardNumber: 1, revealed: false },
-      { id: "card7", type: "R", cardNumber: 1, revealed: false },
-      { id: "card8", type: "SR", cardNumber: 1, revealed: false },
-      { id: "card9", type: "Featured SSR", cardNumber: 1, revealed: false },
-    ],
+function App() {
+  const dispatch = useDispatch();
+  const { cardsFromAPI, isLoading, isSuccess, isError, message } = useSelector(
+    (state) => state.summon
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    } else {
+      dispatch(getNewSummon());
+    }
+  }, [isError, isSuccess, message, dispatch]);
+
+  const [tempState, setTempState] = useState({
+    cards: cardsFromAPI,
     coins: 1000,
-  };
+  });
 
-  handleClick = (card) => {
-    const cards = [...this.state.cards];
+  const handleClick = (card) => {
+    const cards = [...tempState.cards];
+    const coins = tempState.coins;
     const index = cards.indexOf(card);
-    console.log("clicked");
     cards[index] = { ...card };
     cards[index].revealed = true;
-    this.setState({ cards });
+    setTempState({ cards, coins });
   };
 
-  render() {
-    return (
+  const handleFlipAll = () => {
+    var cards = [...tempState.cards];
+    const coins = tempState.coins;
+    tempState.cards.forEach((card) => {
+      const index = cards.indexOf(card);
+      cards[index] = { ...card };
+      cards[index].revealed = true;
+    });
+    setTempState({ cards, coins });
+  };
+
+  const handleSummonBtnClick = () => {
+    dispatch(getNewSummon());
+    if (!isLoading && cardsFromAPI.length !== 0 && tempState.coins > 0) {
+      const cards = cardsFromAPI.cards;
+      const coins = tempState.coins - 50;
+      setTempState({ cards, coins });
+    } else {
+      toast.error("There was an issue with the summon.");
+    }
+  };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  return (
+    <>
+      {" "}
       <Router>
         <div className="container">
-          <Header coins={this.state.coins} />
+          <Header coins={tempState.coins} />
           <Routes>
+            <Route path="/firstbanner/firstpull" element={<FirstPull />} />
             <Route
-              path="/"
+              path="/firstbanner"
               element={
-                <Cards cards={this.state.cards} reveal={this.handleClick} />
+                <SummonScreen
+                  cards={tempState.cards}
+                  reveal={handleClick}
+                  summonBtnClick={handleSummonBtnClick}
+                  flipAll={handleFlipAll}
+                />
               }
             />
+            <Route path="/" element={<BannerSelection />} />
           </Routes>
         </div>
       </Router>
-    );
-  }
+      <ToastContainer></ToastContainer>
+    </>
+  );
 }
 
 export default App;
