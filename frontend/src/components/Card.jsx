@@ -44,7 +44,7 @@ function revealCardBG(card) {
 }
 
 function revealButtonBG(card) {
-  let classes = "w-100 btn ";
+  let classes = "w-75 btn ";
   if (card.revealed === true) {
     if (card.type === "SSR") return classes + " btn-warning";
     else if (card.type === "SR") return classes + " btn-primary";
@@ -57,12 +57,12 @@ function revealButtonBG(card) {
 
 function cardHeader(card) {
   if (card.revealed === true) return card.type;
-  else return "\n";
+  else return "Card";
 }
 
 function cardTitle(card) {
   if (card.revealed === true) return card.cardNumber;
-  else return "\n";
+  else return "";
 }
 
 export default CardComponent;
