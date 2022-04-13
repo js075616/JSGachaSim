@@ -18,14 +18,14 @@ function App() {
   );
   const [selectedBanner, setSelectedBanner] = useState("df");
 
-  // useEffect(() => {
-  //   if (isError) {
-  //     toast.error(message);
-  //   } else {
-  //     if (selectedBanner === "df") dispatch(getDFSummon());
-  //     else if (selectedBanner === "rd") dispatch(getRDSummon());
-  //   }
-  // }, [isError, isSuccess, message, dispatch]);
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    } else {
+      if (selectedBanner === "df") dispatch(getDFSummon());
+      else if (selectedBanner === "rd") dispatch(getRDSummon());
+    }
+  }, [isError, isSuccess, message, dispatch, selectedBanner]);
 
   const [tempState, setTempState] = useState({
     cards: cardsFromAPI,
