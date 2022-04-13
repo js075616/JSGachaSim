@@ -10,9 +10,21 @@ const initialState = {
 };
 
 // Get a new set of cards from the server
-export const getNewSummon = createAsyncThunk("summon", async (_, thunkAPI) => {
+export const getDFSummon = createAsyncThunk("summon", async (_, thunkAPI) => {
   try {
-    return await summonService.getNewSummon();
+    return await summonService.getDFSummon();
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+export const getRDSummon = createAsyncThunk("summon", async (_, thunkAPI) => {
+  try {
+    return await summonService.getRDSummon();
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -30,15 +42,15 @@ export const summonSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getNewSummon.pending, (state) => {
+      .addCase(getDFSummon.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getNewSummon.fulfilled, (state, action) => {
+      .addCase(getDFSummon.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.cardsFromAPI = action.payload;
       })
-      .addCase(getNewSummon.rejected, (state, action) => {
+      .addCase(getDFSummon.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

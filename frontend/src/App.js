@@ -6,24 +6,26 @@ import { ToastContainer } from "react-toastify";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Spinner from "../src/components/Spinner";
-import { getNewSummon } from "./features/summons/summonSlice";
+import { getDFSummon, getRDSummon } from "./features/summons/summonSlice";
 import { useDispatch, useSelector } from "react-redux";
 import BannerSelection from "./pages/BannerSelection";
-import FirstPull from "./components/FirstPull";
+// import FirstPull from "./components/FirstPull";
 
 function App() {
   const dispatch = useDispatch();
   const { cardsFromAPI, isLoading, isSuccess, isError, message } = useSelector(
     (state) => state.summon
   );
+  const [selectedBanner, setSelectedBanner] = useState("df");
 
-  useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    } else {
-      dispatch(getNewSummon());
-    }
-  }, [isError, isSuccess, message, dispatch]);
+  // useEffect(() => {
+  //   if (isError) {
+  //     toast.error(message);
+  //   } else {
+  //     if (selectedBanner === "df") dispatch(getDFSummon());
+  //     else if (selectedBanner === "rd") dispatch(getRDSummon());
+  //   }
+  // }, [isError, isSuccess, message, dispatch]);
 
   const [tempState, setTempState] = useState({
     cards: cardsFromAPI,
@@ -51,7 +53,8 @@ function App() {
   };
 
   const handleSummonBtnClick = () => {
-    dispatch(getNewSummon());
+    if (selectedBanner === "df") dispatch(getDFSummon());
+    else if (selectedBanner === "rd") dispatch(getRDSummon());
     if (!isLoading && cardsFromAPI.length !== 0 && tempState.coins > 0) {
       const cards = cardsFromAPI.cards;
       const coins = tempState.coins - 50;
@@ -59,6 +62,10 @@ function App() {
     } else {
       toast.error("There was an issue with the summon.");
     }
+  };
+
+  const handleBannerSelection = (banner) => {
+    setSelectedBanner(banner);
   };
 
   if (isLoading) {
@@ -72,19 +79,38 @@ function App() {
         <div className="container">
           <Header coins={tempState.coins} />
           <Routes>
-            <Route path="/firstbanner/firstpull" element={<FirstPull />} />
             <Route
-              path="/firstbanner"
+              path="/dfbanner"
               element={
                 <SummonScreen
                   cards={tempState.cards}
                   reveal={handleClick}
                   summonBtnClick={handleSummonBtnClick}
                   flipAll={handleFlipAll}
+                  bannerName="Special Festival Banner"
+                  bannerDesc="7 Featured SSR at 5%, 261 SSR at 5%, 140 SR at 60%, and 40 R at 30%"
                 />
               }
             />
-            <Route path="/" element={<BannerSelection />} />
+            <Route
+              path="/rdbanner"
+              element={
+                <SummonScreen
+                  cards={tempState.cards}
+                  reveal={handleClick}
+                  summonBtnClick={handleSummonBtnClick}
+                  flipAll={handleFlipAll}
+                  bannerName="Double Rates Banner"
+                  bannerDesc="12 Featured SSR at 10%, 261 SSR at 10%, 140 SR at 80%"
+                />
+              }
+            />
+            <Route
+              path="/"
+              element={
+                <BannerSelection selectedBanner={handleBannerSelection} />
+              }
+            />
           </Routes>
         </div>
       </Router>
