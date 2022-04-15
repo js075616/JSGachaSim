@@ -56,7 +56,7 @@ function getTier(summonTotal, summonWeight, tiers) {
 
   for (var i = 0; i < summonWeight.length; i++) {
     runningTotal += summonWeight[i];
-    if (random <= runningTotal) return tiers[i];
+    if (random < runningTotal) return tiers[i];
   }
 }
 
