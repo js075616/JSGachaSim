@@ -6,13 +6,15 @@ function Cards({ cards, reveal, summonBtnClick, flipAll }) {
   return (
     <div className="Cards">
       <div>
-        <Container className="align-items-center justify-content-center">
-          <Row>
-            {cards.map((card) => (
-              <CardComponent key={card.id} card={card} reveal={reveal} />
-            ))}
-          </Row>
-        </Container>
+        {cards.length !== 0 && (
+          <Container className="align-items-center justify-content-center">
+            <Row>
+              {cards.map((card) => (
+                <CardComponent key={card.id} card={card} reveal={reveal} />
+              ))}
+            </Row>
+          </Container>
+        )}
         <Button onClick={() => flipAll()} className="w-25 mt-5 p-2 btn-info">
           Flip All
         </Button>

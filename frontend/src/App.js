@@ -66,6 +66,10 @@ function App() {
 
   const handleBannerSelection = (banner) => {
     setSelectedBanner(banner);
+    var cards = [];
+    var coins = tempState.coins;
+    setTempState({ cards, coins });
+    console.log(tempState.cards.length);
   };
 
   if (isLoading) {
