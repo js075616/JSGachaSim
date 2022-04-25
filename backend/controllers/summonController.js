@@ -1,3 +1,31 @@
+const asyncHandler = require("express-async-handler");
+
+const Card = require("../models/cardModel");
+
+const getCards = asyncHandler(async (req, res) => {
+  const cards = await Card.find();
+
+  res.status(200).json(cards);
+});
+
+const setCard = async (req, res) => {
+  if (!req.body.cardId || !req.body.name) {
+    res.status(400).json({ Error: "Missing name or cardId" });
+  }
+
+  const card = await Card.create({
+    cardId: req.body.cardId,
+    name: req.body.name,
+    rarity: req.body.rarity,
+    atk: req.body.atk,
+    def: req.body.def,
+    passive: req.body.passive,
+    leader: req.body.leader,
+  });
+
+  res.status(200).json(card);
+};
+
 function performSummon(summonWeight, R, SR, SSR, FSSR) {
   tiers = ["R", "SR", "SSR", "Featured SSR"];
   var jsonData = {
@@ -69,4 +97,4 @@ function guaranteedSSR(summonWeight) {
   else return "Featured SSR";
 }
 
-module.exports = { performSummon };
+module.exports = { performSummon, setCard, getCards };

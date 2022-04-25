@@ -3,6 +3,7 @@ const express = require("express");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
 const connectDB = require("./config/db");
+const { errorHandler } = require("./middleware/errorMiddleware");
 
 connectDB();
 
@@ -14,10 +15,12 @@ app.use(
   })
 );
 
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
+app.use(errorHandler);
 
-app.use("/api/summon", require("./routes/summonRoutes"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use("/api", require("./routes/summonRoutes"));
 
 // Serve frontend
 if (process.env.NODE_ENV === "production") {
