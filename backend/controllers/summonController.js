@@ -8,7 +8,7 @@ const getCards = asyncHandler(async (req, res) => {
   res.status(200).json(cards);
 });
 
-const setCard = async (req, res) => {
+const setCard = asyncHandler(async (req, res) => {
   if (!req.body.cardId || !req.body.name) {
     res.status(400).json({ Error: "Missing name or cardId" });
   }
@@ -24,10 +24,11 @@ const setCard = async (req, res) => {
   });
 
   res.status(200).json(card);
-};
+});
 
-function performSummon(summonWeight, R, SR, SSR, FSSR) {
+const performSummon = asyncHandler(async (req, res) => {
   tiers = ["R", "SR", "SSR", "Featured SSR"];
+  summonWeight = [30, 60, 5, 5];
   var jsonData = {
     cards: [
       { id: "card0", revealed: false },
@@ -44,38 +45,60 @@ function performSummon(summonWeight, R, SR, SSR, FSSR) {
   };
   var summonTotal = 0;
 
-  summonWeight.forEach((element) => (summonTotal += element));
-
-  for (var i = 0; i < 9; i++) {
-    var type = getTier(summonTotal, summonWeight, tiers);
-    jsonData.cards[i].type = type;
-    switch (type) {
-      case "R":
-        jsonData.cards[i].cardNumber = getRandomInt(R);
-        break;
-      case "SR":
-        jsonData.cards[i].cardNumber = getRandomInt(SR);
-        break;
-      case "SSR":
-        jsonData.cards[i].cardNumber = getRandomInt(SSR);
-        break;
-      default:
-        jsonData.cards[i].cardNumber = getRandomInt(FSSR);
-        break;
-    }
+  for (var i = 0; i < 10; i++) {
+    var card = await Card.find({ cardId: getRandomIntRange(1, 10) });
+    // console.log(card);
+    // jsonData.cards[0].cardNumber = card[0].cardId;
+    jsonData.cards[i].name = card[0].name;
+    jsonData.cards[i]._id = card[0]._id;
+    jsonData.cards[i].type = card[0].rarity;
+    jsonData.cards[i].atk = card[0].atk;
+    jsonData.cards[i].def = card[0].def;
+    jsonData.cards[i].passive = card[0].passive;
+    jsonData.cards[i].leader = card[0].leader;
   }
 
-  var guaranteedType = guaranteedSSR(summonWeight);
-  jsonData.cards[9].type = guaranteedType;
-  if (guaranteedType === "SSR")
-    jsonData.cards[9].cardNumber = getRandomInt(SSR);
-  else jsonData.cards[9].cardNumber = getRandomInt(FSSR);
+  // summonWeight.forEach((element) => (summonTotal += element));
 
-  return jsonData;
-}
+  // for (var i = 0; i < 9; i++) {
+  //   var type = getTier(summonTotal, summonWeight, tiers);
+  //   jsonData.cards[i].type = type;
+  //   switch (type) {
+  //     case "R":
+  //       // jsonData.cards[i].cardNumber = getRandomInt(R);
+  //       var card = await Card.find({ cardId: getRandomIntRange(1, 10) });
+  //       jsonData.cards[i].cardNumber = card.cardId;
+  //       break;
+  //     case "SR":
+  //       jsonData.cards[i].cardNumber = getRandomInt(SR);
+  //       break;
+  //     case "SSR":
+  //       jsonData.cards[i].cardNumber = getRandomInt(SSR);
+  //       break;
+  //     default:
+  //       jsonData.cards[i].cardNumber = getRandomInt(FSSR);
+  //       break;
+  //   }
+  // }
+
+  // var guaranteedType = guaranteedSSR(summonWeight);
+  // jsonData.cards[9].type = guaranteedType;
+  // if (guaranteedType === "SSR")
+  //   jsonData.cards[9].cardNumber = getRandomInt(SSR);
+  // else jsonData.cards[9].cardNumber = getRandomInt(FSSR);
+
+  res.status(200).json(jsonData);
+});
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
+}
+
+function getRandomIntRange(min, max) {
+  return (
+    Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) +
+    Math.ceil(min)
+  );
 }
 
 function getTier(summonTotal, summonWeight, tiers) {

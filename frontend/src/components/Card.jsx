@@ -8,25 +8,32 @@ function CardComponent({ card, reveal }) {
       id={card.id}
       text="light"
       style={{ width: "19%" }}
-      className="m-1"
+      className="m-1 mt-1"
     >
+      <span className="position-absolute top-0 start-8 translate-middle badge rounded-pill bg-primary">
+        {card.type}
+      </span>
       <Card.Header>{cardHeader(card)}</Card.Header>
-      <Card.Body className="mt-5 mb-5">
+      <Card.Body className="">
         <Card.Title>{cardTitle(card)}</Card.Title>
-        <Card.Text className="mt-5 mb-5">
-          {!card.revealed ? (
-            <Button
-              className={revealButtonBG(card)}
-              type="submit"
-              id={card.id + "btn"}
-              onClick={() => reveal(card)}
-            >
-              Flip
-            </Button>
-          ) : (
-            <Button className={revealButtonBG(card)} disabled></Button>
-          )}
-        </Card.Text>
+        {/* <Card.Text className="mt-5 mb-5"> */}
+        {!card.revealed ? (
+          <Button
+            className={revealButtonBG(card)}
+            type="submit"
+            id={card.id + "btn"}
+            onClick={() => reveal(card)}
+          >
+            Flip
+          </Button>
+        ) : (
+          <ul>
+            <li>Passive: {card.passive}</li>
+            <li className="badge rounded-pill bg-danger">ATK: {card.atk}</li>
+            <li className="badge rounded-pill bg-primary">DEF: {card.def}</li>
+          </ul>
+        )}
+        {/* </Card.Text> */}
       </Card.Body>
     </Card>
   );
@@ -44,7 +51,7 @@ function revealCardBG(card) {
 }
 
 function revealButtonBG(card) {
-  let classes = "w-75 btn ";
+  let classes = "mt-5 mb-5 w-75 btn ";
   if (card.revealed === true) {
     if (card.type === "SSR") return classes + " btn-warning";
     else if (card.type === "SR") return classes + " btn-primary";
@@ -56,12 +63,12 @@ function revealButtonBG(card) {
 }
 
 function cardHeader(card) {
-  if (card.revealed === true) return card.type;
+  if (card.revealed === true) return card.name;
   else return "Card";
 }
 
 function cardTitle(card) {
-  if (card.revealed === true) return card.cardNumber;
+  if (card.revealed === true) return "Leader: " + card.leader;
   else return "";
 }
 
