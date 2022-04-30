@@ -9,6 +9,8 @@ import Spinner from "../src/components/Spinner";
 import { getDFSummon, getRDSummon } from "./features/summons/summonSlice";
 import { useDispatch, useSelector } from "react-redux";
 import BannerSelection from "./pages/BannerSelection";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 // import FirstPull from "./components/FirstPull";
 
 function App() {
@@ -115,6 +117,8 @@ function App() {
                 <BannerSelection selectedBanner={handleBannerSelection} />
               }
             />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </div>
       </Router>

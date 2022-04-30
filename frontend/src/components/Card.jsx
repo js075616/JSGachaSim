@@ -30,7 +30,7 @@ function CardComponent({ card, reveal }) {
           <ul>
             <li>Passive: {card.passive}</li>
             <li className="badge rounded-pill bg-danger">ATK: {card.atk}</li>
-            <li className="badge rounded-pill bg-primary">DEF: {card.def}</li>
+            <li className="badge rounded-pill test">DEF: {card.def}</li>
           </ul>
         )}
         {/* </Card.Text> */}
