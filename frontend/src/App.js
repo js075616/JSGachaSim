@@ -93,8 +93,8 @@ function App() {
                   reveal={handleClick}
                   summonBtnClick={handleSummonBtnClick}
                   flipAll={handleFlipAll}
-                  bannerName="All R's Banner"
-                  bannerDesc="Oops All R's"
+                  bannerName="SSR Goku, Geralt, and Jotaro Kujo blast onto the scene!"
+                  bannerDesc="R: 10 at 37%, SR: 10 at 60%, Featured SSR: 3 at 3%"
                 />
               }
             />

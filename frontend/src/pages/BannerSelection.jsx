@@ -13,9 +13,11 @@ function BannerSelection({ selectedBanner }) {
         style={{ width: "50%" }}
         className="m-1"
       >
-        <Card.Header>Oops All R's</Card.Header>
+        <Card.Header>Introduction Banner</Card.Header>
         <Card.Body className="mt-5 mb-5">
-          <Card.Title>This banner features only R cards</Card.Title>
+          <Card.Title>
+            SSR Goku, Geralt, and Jotaro Kujo blast onto the scene!
+          </Card.Title>
           <Card.Text className="mt-5 mb-5">
             <Button
               className="btn btn-info"
