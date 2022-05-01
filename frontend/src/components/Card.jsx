@@ -8,11 +8,13 @@ function CardComponent({ card, reveal }) {
       id={card.id}
       text="light"
       style={{ width: "19%" }}
-      className="m-1 mt-1"
+      className="m-1 mt-2"
     >
-      <span className="position-absolute top-0 start-8 translate-middle badge rounded-pill bg-primary">
-        {card.type}
-      </span>
+      {card.revealed && (
+        <span className="position-absolute top-0 start-50 translate-middle badge rounded-pill rarity">
+          {card.type}
+        </span>
+      )}
       <Card.Header>{cardHeader(card)}</Card.Header>
       <Card.Body className="">
         <Card.Title>{cardTitle(card)}</Card.Title>
@@ -30,7 +32,7 @@ function CardComponent({ card, reveal }) {
           <ul>
             <li>Passive: {card.passive}</li>
             <li className="badge rounded-pill bg-danger">ATK: {card.atk}</li>
-            <li className="badge rounded-pill bg-primary">DEF: {card.def}</li>
+            <li className="badge rounded-pill test">DEF: {card.def}</li>
           </ul>
         )}
         {/* </Card.Text> */}

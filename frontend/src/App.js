@@ -9,6 +9,8 @@ import Spinner from "../src/components/Spinner";
 import { getDFSummon, getRDSummon } from "./features/summons/summonSlice";
 import { useDispatch, useSelector } from "react-redux";
 import BannerSelection from "./pages/BannerSelection";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 // import FirstPull from "./components/FirstPull";
 
 function App() {
@@ -16,6 +18,7 @@ function App() {
   const { cardsFromAPI, isLoading, isSuccess, isError, message } = useSelector(
     (state) => state.summon
   );
+  // const { user } = useSelector((state) => state.auth);
   const [selectedBanner, setSelectedBanner] = useState("df");
 
   useEffect(() => {
@@ -29,7 +32,7 @@ function App() {
 
   const [tempState, setTempState] = useState({
     cards: cardsFromAPI,
-    coins: 1000,
+    coins: 2000,
   });
 
   const handleClick = (card) => {
@@ -58,6 +61,12 @@ function App() {
     if (!isLoading && cardsFromAPI.length !== 0 && tempState.coins > 0) {
       const cards = cardsFromAPI.cards;
       const coins = tempState.coins - 50;
+      // if (user) {
+      //   var existing = localStorage.getItem("user");
+      //   existing = existing ? JSON.parse(existing) : {};
+      //   existing["coins"] = user.coins - 50;
+      //   localStorage.setItem("user", JSON.stringify(existing));
+      // }
       setTempState({ cards, coins });
     } else {
       toast.error("There was an issue with the summon.");
@@ -91,8 +100,8 @@ function App() {
                   reveal={handleClick}
                   summonBtnClick={handleSummonBtnClick}
                   flipAll={handleFlipAll}
-                  bannerName="All R's Banner"
-                  bannerDesc="Oops All R's"
+                  bannerName="SSR Goku, Geralt, and Jotaro Kujo blast onto the scene!"
+                  bannerDesc="R: 10 at 37%, SR: 10 at 60%, Featured SSR: 3 at 3%"
                 />
               }
             />
@@ -115,6 +124,8 @@ function App() {
                 <BannerSelection selectedBanner={handleBannerSelection} />
               }
             />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </div>
       </Router>

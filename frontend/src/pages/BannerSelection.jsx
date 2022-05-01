@@ -1,8 +1,14 @@
 import { useNavigate } from "react-router-dom";
+// import { useSelector } from "react-redux";
 const { Card, Button } = require("react-bootstrap");
 
 function BannerSelection({ selectedBanner }) {
   const navigate = useNavigate();
+
+  // const { user } = useSelector((state) => state.auth);
+  // if (!user) {
+  //   navigate("/login");
+  // }
 
   return (
     <div className="container d-flex align-items-center justify-content-center">
@@ -13,9 +19,11 @@ function BannerSelection({ selectedBanner }) {
         style={{ width: "50%" }}
         className="m-1"
       >
-        <Card.Header>Oops All R's</Card.Header>
+        <Card.Header>Introduction Banner</Card.Header>
         <Card.Body className="mt-5 mb-5">
-          <Card.Title>This banner features only R cards</Card.Title>
+          <Card.Title>
+            SSR Goku, Geralt, and Jotaro Kujo blast onto the scene!
+          </Card.Title>
           <Card.Text className="mt-5 mb-5">
             <Button
               className="btn btn-info"

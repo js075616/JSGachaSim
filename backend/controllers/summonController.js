@@ -28,7 +28,7 @@ const setCard = asyncHandler(async (req, res) => {
 
 const performSummon = asyncHandler(async (req, res) => {
   tiers = ["R", "SR", "SSR", "Featured SSR"];
-  summonWeight = [30, 60, 5, 5];
+  summonWeight = [37, 60, 0, 3];
   var jsonData = {
     cards: [
       { id: "card0", revealed: false },
@@ -45,41 +45,67 @@ const performSummon = asyncHandler(async (req, res) => {
   };
   var summonTotal = 0;
 
-  for (var i = 0; i < 10; i++) {
-    var card = await Card.find({ cardId: getRandomIntRange(1, 10) });
-    // console.log(card);
-    // jsonData.cards[0].cardNumber = card[0].cardId;
-    jsonData.cards[i].name = card[0].name;
-    jsonData.cards[i]._id = card[0]._id;
-    jsonData.cards[i].type = card[0].rarity;
-    jsonData.cards[i].atk = card[0].atk;
-    jsonData.cards[i].def = card[0].def;
-    jsonData.cards[i].passive = card[0].passive;
-    jsonData.cards[i].leader = card[0].leader;
-  }
-
-  // summonWeight.forEach((element) => (summonTotal += element));
-
-  // for (var i = 0; i < 9; i++) {
-  //   var type = getTier(summonTotal, summonWeight, tiers);
-  //   jsonData.cards[i].type = type;
-  //   switch (type) {
-  //     case "R":
-  //       // jsonData.cards[i].cardNumber = getRandomInt(R);
-  //       var card = await Card.find({ cardId: getRandomIntRange(1, 10) });
-  //       jsonData.cards[i].cardNumber = card.cardId;
-  //       break;
-  //     case "SR":
-  //       jsonData.cards[i].cardNumber = getRandomInt(SR);
-  //       break;
-  //     case "SSR":
-  //       jsonData.cards[i].cardNumber = getRandomInt(SSR);
-  //       break;
-  //     default:
-  //       jsonData.cards[i].cardNumber = getRandomInt(FSSR);
-  //       break;
-  //   }
+  // for (var i = 0; i < 10; i++) {
+  //   var card = await Card.find({ cardId: getRandomIntRange(1, 10) });
+  //   // console.log(card);
+  //   // jsonData.cards[0].cardNumber = card[0].cardId;
+  //   jsonData.cards[i].name = card[0].name;
+  //   jsonData.cards[i]._id = card[0]._id;
+  //   jsonData.cards[i].type = card[0].rarity;
+  //   jsonData.cards[i].atk = card[0].atk;
+  //   jsonData.cards[i].def = card[0].def;
+  //   jsonData.cards[i].passive = card[0].passive;
+  //   jsonData.cards[i].leader = card[0].leader;
   // }
+
+  summonWeight.forEach((element) => (summonTotal += element));
+
+  for (var i = 0; i < 10; i++) {
+    var type = getTier(summonTotal, summonWeight, tiers);
+    jsonData.cards[i].type = type;
+    switch (type) {
+      case "R":
+        var card = await Card.find({ cardId: getRandomIntRange(1, 10) });
+        jsonData.cards[i].name = card[0].name;
+        jsonData.cards[i]._id = card[0]._id;
+        jsonData.cards[i].type = card[0].rarity;
+        jsonData.cards[i].atk = card[0].atk;
+        jsonData.cards[i].def = card[0].def;
+        jsonData.cards[i].passive = card[0].passive;
+        jsonData.cards[i].leader = card[0].leader;
+        break;
+      case "SR":
+        var card = await Card.find({ cardId: getRandomIntRange(101, 110) });
+        jsonData.cards[i].name = card[0].name;
+        jsonData.cards[i]._id = card[0]._id;
+        jsonData.cards[i].type = card[0].rarity;
+        jsonData.cards[i].atk = card[0].atk;
+        jsonData.cards[i].def = card[0].def;
+        jsonData.cards[i].passive = card[0].passive;
+        jsonData.cards[i].leader = card[0].leader;
+        break;
+      // case "SSR":
+      //   jsonData.cards[i].cardNumber = getRandomIntRange(1, 10);
+      //   jsonData.cards[i].name = card[0].name;
+      //   jsonData.cards[i]._id = card[0]._id;
+      //   jsonData.cards[i].type = card[0].rarity;
+      //   jsonData.cards[i].atk = card[0].atk;
+      //   jsonData.cards[i].def = card[0].def;
+      //   jsonData.cards[i].passive = card[0].passive;
+      //   jsonData.cards[i].leader = card[0].leader;
+      //   break;
+      default:
+        var card = await Card.find({ cardId: getRandomIntRange(201, 203) });
+        jsonData.cards[i].name = card[0].name;
+        jsonData.cards[i]._id = card[0]._id;
+        jsonData.cards[i].type = "Featured SSR";
+        jsonData.cards[i].atk = card[0].atk;
+        jsonData.cards[i].def = card[0].def;
+        jsonData.cards[i].passive = card[0].passive;
+        jsonData.cards[i].leader = card[0].leader;
+        break;
+    }
+  }
 
   // var guaranteedType = guaranteedSSR(summonWeight);
   // jsonData.cards[9].type = guaranteedType;
