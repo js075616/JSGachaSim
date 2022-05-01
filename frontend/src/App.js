@@ -32,7 +32,7 @@ function App() {
 
   const [tempState, setTempState] = useState({
     cards: cardsFromAPI,
-    coins: 1000,
+    coins: 2000,
   });
 
   const handleClick = (card) => {

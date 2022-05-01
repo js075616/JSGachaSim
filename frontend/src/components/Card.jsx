@@ -11,7 +11,7 @@ function CardComponent({ card, reveal }) {
       className="m-1 mt-2"
     >
       {card.revealed && (
-        <span className="position-absolute top-0 start-50 translate-middle badge rounded-pill test">
+        <span className="position-absolute top-0 start-50 translate-middle badge rounded-pill rarity">
           {card.type}
         </span>
       )}

@@ -1,8 +1,14 @@
 import { useNavigate } from "react-router-dom";
+// import { useSelector } from "react-redux";
 const { Card, Button } = require("react-bootstrap");
 
 function BannerSelection({ selectedBanner }) {
   const navigate = useNavigate();
+
+  // const { user } = useSelector((state) => state.auth);
+  // if (!user) {
+  //   navigate("/login");
+  // }
 
   return (
     <div className="container d-flex align-items-center justify-content-center">
