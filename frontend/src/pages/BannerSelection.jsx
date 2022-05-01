@@ -8,14 +8,14 @@ function BannerSelection({ selectedBanner }) {
     <div className="container d-flex align-items-center justify-content-center">
       <Card
         bg="primary"
-        id="firstbanner"
+        id="dfbanner"
         text="light"
         style={{ width: "50%" }}
         className="m-1"
       >
-        <Card.Header>Normal Banner</Card.Header>
+        <Card.Header>Oops All R's</Card.Header>
         <Card.Body className="mt-5 mb-5">
-          <Card.Title>This banner features normal rates</Card.Title>
+          <Card.Title>This banner features only R cards</Card.Title>
           <Card.Text className="mt-5 mb-5">
             <Button
               className="btn btn-info"
@@ -31,9 +31,9 @@ function BannerSelection({ selectedBanner }) {
           </Card.Text>
         </Card.Body>
       </Card>
-      <Card
+      {/* <Card
         bg="primary"
-        id="firstbanner"
+        id="rdbanner"
         text="light"
         style={{ width: "50%" }}
         className="m-1"
@@ -55,7 +55,7 @@ function BannerSelection({ selectedBanner }) {
             </Button>
           </Card.Text>
         </Card.Body>
-      </Card>
+      </Card> */}
     </div>
   );
 }

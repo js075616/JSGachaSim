@@ -2,6 +2,10 @@ const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
+const connectDB = require("./config/db");
+const { errorHandler } = require("./middleware/errorMiddleware");
+
+connectDB();
 
 const app = express();
 
@@ -11,10 +15,12 @@ app.use(
   })
 );
 
+app.use(errorHandler);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api/summon", require("./routes/summonRoutes"));
+app.use("/api", require("./routes/summonRoutes"));
 
 // Serve frontend
 if (process.env.NODE_ENV === "production") {

@@ -6,7 +6,7 @@ function Cards({ cards, reveal, summonBtnClick, flipAll }) {
   return (
     <div className="Cards">
       <div>
-        {cards.length !== 0 && (
+        {cards?.length !== 0 && (
           <Container className="align-items-center justify-content-center">
             <Row>
               {cards.map((card) => (

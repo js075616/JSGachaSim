@@ -91,8 +91,8 @@ function App() {
                   reveal={handleClick}
                   summonBtnClick={handleSummonBtnClick}
                   flipAll={handleFlipAll}
-                  bannerName="Special Festival Banner"
-                  bannerDesc="7 Featured SSR at 5%, 261 SSR at 5%, 140 SR at 60%, and 40 R at 30%"
+                  bannerName="All R's Banner"
+                  bannerDesc="Oops All R's"
                 />
               }
             />
