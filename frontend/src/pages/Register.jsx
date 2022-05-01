@@ -52,6 +52,7 @@ function Register() {
         name,
         email,
         password,
+        coins: 2000,
       };
 
       dispatch(register(userData));

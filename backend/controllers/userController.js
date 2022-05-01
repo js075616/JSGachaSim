@@ -41,6 +41,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       token: generateToken(user._id),
+      coins: user.coins,
     });
   } else {
     res.status(400);
