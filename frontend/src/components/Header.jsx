@@ -23,6 +23,7 @@ function Header({ coins }) {
       </div>
       <div className="logo">
         <h4>{user && "Logged In: " + user.name}</h4>
+        <h4>{user && user.name + "'s Coins: " + user.coins}</h4>
         <h4>Coins: {coins}</h4>
       </div>
       <ul>

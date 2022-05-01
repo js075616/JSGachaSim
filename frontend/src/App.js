@@ -18,6 +18,7 @@ function App() {
   const { cardsFromAPI, isLoading, isSuccess, isError, message } = useSelector(
     (state) => state.summon
   );
+  // const { user } = useSelector((state) => state.auth);
   const [selectedBanner, setSelectedBanner] = useState("df");
 
   useEffect(() => {
@@ -60,6 +61,12 @@ function App() {
     if (!isLoading && cardsFromAPI.length !== 0 && tempState.coins > 0) {
       const cards = cardsFromAPI.cards;
       const coins = tempState.coins - 50;
+      // if (user) {
+      //   var existing = localStorage.getItem("user");
+      //   existing = existing ? JSON.parse(existing) : {};
+      //   existing["coins"] = user.coins - 50;
+      //   localStorage.setItem("user", JSON.stringify(existing));
+      // }
       setTempState({ cards, coins });
     } else {
       toast.error("There was an issue with the summon.");

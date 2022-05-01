@@ -15,6 +15,10 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a password"],
     },
+    coins: {
+      type: Number,
+      required: [true, "Please add coins"],
+    },
   },
   { timestamps: true }
 );
